@@ -2,14 +2,17 @@ import { faStackOverflow } from '@fortawesome/free-brands-svg-icons'
 import { faBackward } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { loginApi, registerApi } from '../services/allApi'
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { loginResponseContext } from '../context/Contextshare'
 
 function Auth({ register }) {
+const{setLoginResponse}=useContext(loginResponseContext)
+
   const navigate = useNavigate()
   const [userDetails, setUserDetails] = useState({
     username: '',
@@ -54,6 +57,7 @@ function Auth({ register }) {
       console.log(result)
 
       if(result.status==200){
+        setLoginResponse(true)
 
         toast.success("login successfull")
 
